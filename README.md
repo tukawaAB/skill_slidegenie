@@ -121,12 +121,6 @@ python -m slidegenie generate -p "DX推進の3つのステップ" -o test.pptx
 
 SlideGenie は **ユーザー × Google Gemini の1対1通信** のみで動作します。
 
-### ✅ 第三者の監視・計測サービスは一切使用しない
-
-- Azure / AWS / GCP Logging などのクラウド監視サービスへの接続は **一切ありません**
-- Sentry / Datadog / New Relic / PostHog などの第三者テレメトリも **一切ありません**
-- ログは Python 標準 `logging` で stderr 出力のみで、外部送信はしません
-
 ### ✅ データフロー
 
 ```
