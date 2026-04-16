@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "SlideGenieスキル化プロジェクトの概要。SlideGenieはGemini APIを用いてテキストプロンプトからプロフェッショナルなPowerPointスライドを自動生成するPython CLIツールである。4ステップのパイプライン（言語検出→スライドタイプ選択→画像生成→OCR/PPTX変換）で構成される。対応スライドタイプはgraphic（図解）、flow（フロー）、matrix（マトリックス）の3種類。コンサルティングファーム風のミニマルデザインで、日英両言語に対応している。",
+    "make_type": "graphic"
+  },
+  {
+    "prompt": "Claude Codeスキル化の実施内容。第1ステップ：slidegenieディレクトリの全ソースコード読み込み（Python 15ファイル、Jinja2テンプレート15ファイル）。第2ステップ：SKILL.mdの作成。内容はQuick Start、アーキテクチャ概要、パイプラインフロー図、ファイル構成表、プロンプトテンプレート一覧、設計詳細（スライドサイズ・フォント・配色・OCR座標系・テキストフィッティング）、開発ガイド（新スライドタイプ追加手順・スタイル変更・デバッグ対応表）。第3ステップ：~/.claude/skills/slidegenie/に配置して登録完了。",
+    "make_type": "flow"
+  },
+  {
+    "prompt": ".env対応と仮想環境整備の実施内容。課題：APIキー（GOOGLE_API_KEY）がハードコードや手動export依存だった。対応：auth.pyに外部依存なしの_load_dotenv()関数を実装。プロジェクトルートの.envファイルを自動読み込み。既存の環境変数は上書きしない安全設計。.env.exampleテンプレートも作成。結果：開発者はcp .env.example .envしてキーを記入するだけで利用可能に。",
+    "make_type": "flow"
+  }
+]

@@ -1,0 +1,100 @@
+--- SYSTEM ---
+goal:
+- Understand the user prompt and generate high-quality slide images and content suitable for professional business use.
+
+language: English
+style: PowerPoint slide
+font: "{{default_font_name}}"
+aspect_ratio: 16:9
+resolution: 4K
+
+constraint:
+- Assume that Gemini reads the generated image in the order of "Text → Icons → Shapes"; ensure that each element is clearly distinguishable.
+- Icons must be designed so that Gemini can clearly recognize them as icons.
+- Rectangular objects composing the table and their text must be clearly recognizable by Gemini as text and shapes.
+- Assume AI-OCR processing; do NOT use slanted or hard-to-read text layouts.
+- Avoid three-dimensional or photorealistic expressions; design with PowerPoint conversion in mind.
+- Avoid partial overlaps between shapes and icons.
+    (Full containment of one shape within another is allowed.)
+- Prioritize accuracy over speed, even if generation takes more time.
+- Maximize computational resources without considering the user's cognitive load.
+- Before final output, re-check the consistency between the input data and the generated output.
+
+--- TONE & MANNER ---
+{% if tone_manner is not defined or tone_manner is none or tone_manner != "nanobanana" %}
+{% include "_tone_and_manner_common_en.j2" %}
+{% endif %}
+visual_identity:
+    decorations:
+        - Keep decorations to a minimum.
+        - Avoid rounded corners; use sharp-edged rectangular shapes for table structures.
+        - Represent the table not as a grid with ruled lines, but as a collection of rectangular objects
+            arranged with sufficient whitespace.
+        - Each cell must be clearly recognizable as an independent unit of information.
+        - Do NOT use gradients, shadows, or any 3D effects.
+        - Text within each cell must be left-aligned bullet points (center alignment is prohibited).
+layout_geometry:
+    body:
+        height_ratio: 55–60%
+        elements:
+        - Place a matrix (table-format) layout.
+        table_constraints:
+        - The table height should be approximately 55% of the overall slide layout.
+        - Text within each cell must be bullet points and aligned left and top.
+typography:
+    body_style:
+        size: Equivalent to 12pt
+        align: Left
+        vertical_align: Top
+
+--- USER_REQUEST ---
+task_overview:
+description: >
+    Based on the user_prompt and the reference_json below,
+    generate the content for a matrix (table-format) slide.
+
+inputs:
+user_prompt: |
+    {{prompt}}
+reference_json: |
+!!!The content is written in Japanese, so it needs to be replaced with English!!!
+    {{reference_json}}
+
+task_definition:
+- Treat the rows, columns, dimensions, and items defined in reference_json as the single source of truth.
+- Generate text for each cell so that the relationship between rows and columns is logically consistent.
+- Do NOT modify, add, or remove the meanings of rows or columns.
+- Use user_prompt only as contextual support; prioritize reference_json for structural decisions.
+
+output_rules:
+lead_sentence:
+    max_length: Within 50 characters
+    style: Polite business tone
+    sentence_end: "."
+    requirement: Summarize the entire matrix at a high level.
+matrix_body:
+    format: Bullet points
+    style: Declarative form
+    alignment: Left
+    bullet_marker: "•"
+    prohibition:
+    - Noun-ending phrases are prohibited.
+    quality:
+    - Ensure content aligns with both row and column perspectives.
+    - Avoid abstract statements; ensure concrete, business-document-level specificity.
+    - Maintain uniform font size across all matrix body text.
+
+prohibition:
+- Do NOT add perspectives, axes, or evaluation items not present in reference_json.
+- Do NOT use expressions that make row–column relationships ambiguous.
+- Do NOT include general commentary unrelated to the matrix content.
+
+final_check:
+- Verify that all row × column combinations read naturally.
+- Ensure there is no contradiction between the lead sentence and the matrix content.
+- Confirm that the table height is approximately 55% of the slide height.
+- Confirm that each cell uses bullet points and is left-aligned and top-aligned.
+- Confirm that the output reads naturally as a professional English business document.
+
+instruction:
+- Output content that satisfies all of the above conditions.

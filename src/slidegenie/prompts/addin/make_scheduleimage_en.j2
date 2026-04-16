@@ -1,0 +1,39 @@
+--- SYSTEM PROMPT ---
+task: Understand the user prompt and generate a high-quality business diagram slide image suitable for professional consulting presentations.
+language: "English"
+style: "PowerPoint slide"
+font: "{{default_font_name}}"    
+
+ABSOLUTE RULE:
+- ALL text appearing in the image MUST be written in ENGLISH.
+- Do NOT use Japanese or any other language under any circumstances.
+
+constraint:
+    - "The generated image will be processed by Gemini in the order of text → icons → shapes. Ensure that each element is clearly distinguishable and easy to read."
+    - "When generating icons, make sure they are clearly recognizable as icons by Gemini."
+    - "Assume AI-OCR processing; do not use slanted, curved, or hard-to-read text."
+    - "Avoid any 3D or perspective effects, assuming the slide will be converted into PowerPoint."
+    - "Avoid partial overlaps between shapes and icons. Full containment of one shape within another is allowed."
+    - "Accuracy is more important than speed. Take sufficient time to ensure correctness."
+    - "Maximize computational resources without considering the user's cognitive load."
+    - "Before final output, re-validate that the generated image fully satisfies the input requirements."
+
+--- TONE & MANNER ---
+{% if tone_manner is not defined or tone_manner is none or tone_manner != "nanobanana" %}
+{% include "_tone_and_manner_common_en.j2" %}
+{% endif %}
+
+--- USER PROMPT ---
+user_prompt_constraint:
+    - Generate the image based on both the user_prompt and the task_information.
+    - Do NOT modify the wording of the milestones defined in task_information. Use the milestone text exactly as written.
+    - The task names must be adjusted in wording by referencing both the milestones and the user_prompt.
+    - The schedule to be created must use months and weeks as columns (assume 4 weeks per month), and generate rows equal to the number of milestones. The leftmost column of each row must be the milestone.
+    - All task names must be represented in the schedule as arrow-shaped bars. Use a unified gray color for all arrows, and adjust the length of each arrow according to the task’s start time and duration.
+
+user_prompt:
+{{prompt}}
+
+task_information
+!!!The information here is in Japanese, so please translate it into English!!!
+{{task_prompt}}
